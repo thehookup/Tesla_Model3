@@ -1,0 +1,138 @@
+[
+    {
+        "id": "519d673.a2c8498",
+        "type": "alexa-local",
+        "z": "771e30ce.ce646",
+        "devicename": "Tesla",
+        "inputtrigger": false,
+        "x": 150,
+        "y": 1360,
+        "wires": [
+            [
+                "4f3e35b1.820d3c"
+            ]
+        ]
+    },
+    {
+        "id": "46107909.0c1608",
+        "type": "function",
+        "z": "771e30ce.ce646",
+        "name": "Set Payload",
+        "func": "msg.payload = { data: {\n  \"entity_id\": \"climate.tesla_model_3_hvac_climate_system\",\n\"temperature\": msg.bri\n} };\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 710,
+        "y": 1420,
+        "wires": [
+            [
+                "32b522a0.f1009e"
+            ]
+        ]
+    },
+    {
+        "id": "4f3e35b1.820d3c",
+        "type": "switch",
+        "z": "771e30ce.ce646",
+        "name": "on/off",
+        "property": "on_off_command",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true"
+            },
+            {
+                "t": "false"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 350,
+        "y": 1360,
+        "wires": [
+            [
+                "a8f1407.a917cc"
+            ],
+            [
+                "69130dd3.6a4994"
+            ]
+        ]
+    },
+    {
+        "id": "32b522a0.f1009e",
+        "type": "api-call-service",
+        "z": "771e30ce.ce646",
+        "name": "Set Temperature",
+        "server": "1e776005.3ee9b",
+        "service_domain": "climate",
+        "service": "set_temperature",
+        "data": "{}",
+        "x": 920,
+        "y": 1420,
+        "wires": []
+    },
+    {
+        "id": "a8f1407.a917cc",
+        "type": "function",
+        "z": "771e30ce.ce646",
+        "name": "set payload",
+        "func": "msg.payload = { data: {   \"entity_id\": \"climate.tesla_model_3_hvac_climate_system\", \"operation_mode\": msg.payload } };\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 530,
+        "y": 1300,
+        "wires": [
+            [
+                "80427f7.cd8128"
+            ]
+        ]
+    },
+    {
+        "id": "80427f7.cd8128",
+        "type": "api-call-service",
+        "z": "771e30ce.ce646",
+        "name": "Turn on or off",
+        "server": "1e776005.3ee9b",
+        "service_domain": "climate",
+        "service": "set_operation_mode",
+        "data": "{}",
+        "x": 730,
+        "y": 1300,
+        "wires": []
+    },
+    {
+        "id": "69130dd3.6a4994",
+        "type": "switch",
+        "z": "771e30ce.ce646",
+        "name": "60-90",
+        "property": "bri",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "btwn",
+                "v": "60",
+                "vt": "num",
+                "v2": "90",
+                "v2t": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 530,
+        "y": 1420,
+        "wires": [
+            [
+                "46107909.0c1608"
+            ]
+        ]
+    },
+    {
+        "id": "1e776005.3ee9b",
+        "type": "server",
+        "z": "",
+        "name": "Home Assistant",
+        "url": "https://Fake_HA_Server.duckdns.org:8123",
+        "pass": "notMyPassword"
+    }
+]

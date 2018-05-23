@@ -1,0 +1,7 @@
+homekit:
+  filter:
+    include_entities:
+      - climate.tesla_model_3_hvac_climate_system
+      - input_boolean.viserions_air
+      - lock.tesla_model_3_door_lock
+      - cover.garage_door

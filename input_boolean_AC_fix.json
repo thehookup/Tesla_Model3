@@ -1,0 +1,85 @@
+[
+    {
+        "id": "3249891c.4b2126",
+        "type": "server-state-changed",
+        "z": "771e30ce.ce646",
+        "name": "Viserions Air",
+        "server": "1e776005.3ee9b",
+        "entityidfilter": "input_boolean.viserions_air",
+        "haltifstate": "",
+        "x": 170,
+        "y": 1080,
+        "wires": [
+            [
+                "bcfd90db.99bcb"
+            ]
+        ]
+    },
+    {
+        "id": "bcfd90db.99bcb",
+        "type": "switch",
+        "z": "771e30ce.ce646",
+        "name": "on/off",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "on",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "off",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 370,
+        "y": 1080,
+        "wires": [
+            [
+                "99f0c88a.73edd8"
+            ],
+            [
+                "f164f7ce.eb5ac8"
+            ]
+        ]
+    },
+    {
+        "id": "99f0c88a.73edd8",
+        "type": "api-call-service",
+        "z": "771e30ce.ce646",
+        "name": "Turn on",
+        "server": "1e776005.3ee9b",
+        "service_domain": "climate",
+        "service": "set_operation_mode",
+        "data": "{   \"entity_id\": \"climate.tesla_model_3_hvac_climate_system\", \"operation_mode\":\"on\" }",
+        "x": 540,
+        "y": 1040,
+        "wires": []
+    },
+    {
+        "id": "f164f7ce.eb5ac8",
+        "type": "api-call-service",
+        "z": "771e30ce.ce646",
+        "name": "Turn off",
+        "server": "1e776005.3ee9b",
+        "service_domain": "climate",
+        "service": "set_operation_mode",
+        "data": "{   \"entity_id\": \"climate.tesla_model_3_hvac_climate_system\", \"operation_mode\":\"off\" }",
+        "x": 540,
+        "y": 1120,
+        "wires": []
+    },
+    {
+        "id": "1e776005.3ee9b",
+        "type": "server",
+        "z": "",
+        "name": "Home Assistant",
+        "url": "https://Fake_HA_Server.duckdns.org:8123",
+        "pass": "notMyPassword"
+    }
+]
